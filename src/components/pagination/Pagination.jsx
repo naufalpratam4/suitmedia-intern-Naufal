@@ -1,13 +1,35 @@
-import * as React from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+import React from "react";
+import { Pagination } from "react-bootstrap";
 
-function Pagination() {
+const PaginationPages = ({ currentPage, totalPages, onPageChange }) => {
+  const items = [];
+
+  // Generate pagination items
+  for (let number = 1; number <= totalPages; number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === currentPage}
+        onClick={() => onPageChange(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
-    <Stack spacing={2}>
-      <Pagination count={10} variant="outlined" shape="rounded" />
-    </Stack>
+    <Pagination className="mt-4">
+      <Pagination.Prev
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+      />
+      {items}
+      <Pagination.Next
+        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(currentPage + 1)}
+      />
+    </Pagination>
   );
-}
+};
 
-export default Pagination;
+export default PaginationPages;

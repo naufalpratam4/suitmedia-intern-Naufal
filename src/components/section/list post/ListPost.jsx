@@ -23,8 +23,8 @@ function ListPost() {
                 </MenuButton>
                 <MenuList>
                   <MenuItem>10</MenuItem>
+                  <MenuItem>20</MenuItem>
                   <MenuItem>50</MenuItem>
-                  <MenuItem>100</MenuItem>
                 </MenuList>
               </Menu>
 
