@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CardList2 from "./components/section/card/CardList2";
-import CardList from "./components/section/card/CardList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 
 function App() {
@@ -22,9 +21,12 @@ function App() {
 
   return (
     <>
-      {/* <CardList2 coinsData={coinsData} /> */}
-      <LandingPage />
-      {/* <CardList coinsData={coinsData} /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+        </Routes>
+      </BrowserRouter>
+      );
     </>
   );
 }
