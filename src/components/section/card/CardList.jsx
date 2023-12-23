@@ -1,46 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import CardComponent from "../../card/CardComponent";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Form } from "react-bootstrap";
 import PaginationPages from "../../pagination/Pagination";
-import { useState } from "react";
-function CardList() {
+import ListPost from "../list post/ListPost";
+
+function CardList({ coinsData }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const totalPages = Math.ceil(coinsData.length / itemsPerPage);
 
   const handlePageChange = (page) => {
-    // Lakukan sesuatu ketika halaman berubah
     setCurrentPage(page);
   };
+
+  const handleItemsPerPageChange = (e) => {
+    setItemsPerPage(parseInt(e.target.value, 10));
+    setCurrentPage(1); // Reset to the first page when changing items per page
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentCoinsData = coinsData.slice(startIndex, endIndex);
+
   return (
     <>
       <Container className="mt-3">
-        <Row>
-          <Col xs={12} sm={6} lg={3}>
-            <CardComponent
-              date="23 Desember 2023"
-              title="Kenali Tingkatan Influencers berdasarkan Jumlah Followers"
-            />
-          </Col>
-          <Col xs={12} sm={6} lg={3}>
-            <CardComponent
-              date="23 Desember 2023"
-              title="Kenali Tingkatan Influencers berdasarkan Jumlah Followers"
-            />
-          </Col>
-          <Col xs={12} sm={6} lg={3}>
-            <CardComponent
-              date="23 Desember 2023"
-              title="Kenali Tingkatan Influencers berdasarkan Jumlah Followers"
-            />
-          </Col>
-          <Col xs={12} sm={6} lg={3}>
-            <CardComponent
-              date="23 Desember 2023"
-              title="Kenali Tingkatan Influencers berdasarkan Jumlah Followers"
-            />
-          </Col>
+        {/* Dropdown for selecting items per page */}
+        <ListPost
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={handleItemsPerPageChange}
+        />
+
+        <Row className="mt-2">
+          {currentCoinsData.map((coin) => (
+            <Col
+              key={coin.id}
+              xs={12}
+              sm={6}
+              lg={3}
+              className="pb-2 d-flex justify-content-center"
+            >
+              <CardComponent
+                image={coin.image}
+                name={coin.name}
+                price={coin.current_price}
+              />
+            </Col>
+          ))}
         </Row>
-        <div className="text-center">
+        <div className="d-flex justify-content-center">
           <PaginationPages
             currentPage={currentPage}
             totalPages={totalPages}
