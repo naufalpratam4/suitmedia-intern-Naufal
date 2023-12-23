@@ -37,7 +37,7 @@ const Banner = () => {
   return (
     <div style={bannerStyle}>
       <img
-        src="public/assets/logo/banner.jpg"
+        src="src/assets/logo/banner.jpg"
         alt="Banner Image"
         style={imageStyle}
       />

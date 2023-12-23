@@ -11,7 +11,7 @@ function LandingPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("public/api/APICard.json");
+        const response = await axios.get("src/api/APICard.json");
         setCoinsData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
